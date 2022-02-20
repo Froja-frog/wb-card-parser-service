@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href={% static "style.css" %}>
+    <meta charset="UTF-8">
+    <title>Парсер</title>
+</head>
+<body>
+<h1>Парсер</h1>
+<div class="wrapper">
+    <table class="content-table">
+        {% for result in results %}
+            <tr>
+                <th></th>
+                <th>{{ result.date|date:"d.m" }}</th>
+            </tr>
+            <tr>
+                <td>{{ result.query.query_text }}</td>
+                <td>{{ result.position }}</td>
+            </tr>
+        {% endfor %}
+
+
+    </table>
+</div>
+
+</body>
+</html>
