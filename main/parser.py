@@ -24,12 +24,13 @@ class Parser:
     def __needs_to_parse():
         """Checks if app needs to parse some info from wildberries"""
         today = datetime.date.today().strftime('%d.%m')
-        print(today)
         queries = Query.objects.all()
         for query in queries:
-            result = Result.objects.filter(query=query, results_dict__has_key=today)
-            print(f"{result = }")
-            if len(result) == 0:
+            try:
+                result = Result.objects.get(query=query, results_dict__has_key=today)
+            except Result.DoesNotExist:
+                return True
+            if today not in result.results_dict or result.results_dict.get(today) == '':
                 return True
         return False
 
@@ -95,7 +96,7 @@ class Parser:
         result.save()
 
     def run(self):
-        print(self.__needs_to_parse())
+        print(f"{self.__needs_to_parse() = }")
         if self.__needs_to_parse():
             try:
                 self.__init_driver()
