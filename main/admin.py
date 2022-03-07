@@ -10,9 +10,9 @@ class QueryAdmin(admin.ModelAdmin):
 admin.site.register(Query, QueryAdmin)
 
 
-class ResultAdmin(admin.ModelAdmin):
-    list_display = ("position", "query", "date")
-    fields = ("position", "query")
-
-
-admin.site.register(Result, ResultAdmin)
+# class ResultAdmin(admin.ModelAdmin):
+#     list_display = ("position", "query", "dates")
+#     fields = ("position", "query")
+#
+#
+# admin.site.register(Result, ResultAdmin)

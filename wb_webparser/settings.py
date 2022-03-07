@@ -36,7 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main.apps.MainConfig',
+    'django.contrib.postgres',
+    'main',
+    'django_apscheduler'
 ]
 
 MIDDLEWARE = [
@@ -76,8 +78,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'wb_parser_db',
-        'USER': "user",
-        "PASSWORD": "password",
+        'USER': "admin",
+        "PASSWORD": "wb_parser_pwd",
         "HOST": "127.0.0.1",
         "PORT": "5432",
     }
@@ -126,3 +128,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DEFAULT_PAGES_COUNT = 10
 
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+
+APSCHEDULER_RUN_NOW_TIMEOUT = 25
