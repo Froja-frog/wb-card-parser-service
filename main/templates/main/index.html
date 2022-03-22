@@ -15,14 +15,15 @@
             <th>{{ date }}</th>
         {% endfor %}
         {% for result in results %}
-            <tr>
-                <td>{{ result.query.query_text }}</td>
-                {% for value in result.results_dict.values %}
+            {% for query_text, vals_dict in result.results_dict.items %}
+                <tr>
+                <td>{{ query_text }}</td>
+                {% for value in vals_dict.values %}
                     <td>{{ value }}</td>
                 {% endfor %}
-
-            </tr>
+            {% endfor %}
         {% endfor %}
+        </tr>
     </table>
 </div>
 

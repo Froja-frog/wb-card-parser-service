@@ -1,5 +1,8 @@
 import datetime
 from datetime import date, timedelta
+
+from django.db.models import QuerySet
+
 from .models import Result
 
 
@@ -9,19 +12,21 @@ def get_month_dates():
     return month_dates
 
 
-def _update_dates_keys(results,month_dates: list):
+def _update_dates_keys(results: QuerySet[Result], month_dates: list):
     for result in results:
-        result_dict = result.results_dict
-        [result_dict.pop(key) for key in list(result_dict.keys()) if key not in month_dates]
-        for month_date in month_dates:
-            if month_date not in result.results_dict:
-                result.results_dict[month_date] = ''
+        result_dict: dict = result.results_dict
+        for query_key in result_dict.keys():
+            [result_dict[query_key].pop(key) for key in list(result_dict[query_key].keys()) if key not in month_dates]
+            for month_date in month_dates:
+                if month_date not in result_dict.get(query_key):
+                    result_dict.get(query_key)[month_date] = ''
 
 
 def _sort_result_dict(result: Result):
     rd = result.results_dict
-    sorted_rd = dict(sorted(rd.items(), key=lambda d: datetime.datetime.strptime(d[0], '%d.%m')))
-    result.results_dict = sorted_rd
+    for key in rd.keys():
+        sorted_rd = dict(sorted(rd.get(key).items(), key=lambda d: datetime.datetime.strptime(d[0], '%d.%m')))
+        rd[key] = sorted_rd
 
 
 def prepare_results():
