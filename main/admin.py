@@ -1,18 +1,10 @@
 from django.contrib import admin
-from .models import Query, Result
+from .models import Query
 
 
 class QueryAdmin(admin.ModelAdmin):
-    list_display = ("query_text", "prod_article", "start_date")
-    fields = ("query_text", "prod_article")
+    list_display = ("queries_text", "prod_article", "start_date")
+    fields = ("queries_text", "prod_article")
 
 
 admin.site.register(Query, QueryAdmin)
-
-
-# class ResultAdmin(admin.ModelAdmin):
-#     list_display = ("position", "query", "dates")
-#     fields = ("position", "query")
-#
-#
-# admin.site.register(Result, ResultAdmin)
